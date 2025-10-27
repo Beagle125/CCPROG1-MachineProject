@@ -194,12 +194,14 @@ Precondition: It is currently a player's turn
 @param void
 @return a random integer between 1 and 6
 */
+
+// (POTENTIAL ISSUE)
 int rollDie(void){
     // Initialize nMin and nMax
     int nMin = 1;
     int nMax = 6;
 
-    // Generate a random number
+    // Generate a random number (This might be generating the same number)
     srand(time(NULL));
 
     return (nMin + rand() % (nMax - nMin + 1));
@@ -210,11 +212,22 @@ int rollDie(void){
 /*
 bool answerSequence(int nGameLevel){
     // Declaration of variables
-
+    bool bCorrect = false;
+    int nGenerate;
+    int nFirst;
+    int nSequence;
+    int nAnswer;
+    int nAnswer2;
+    char cFirst;
+    char cAnswer;
+    char cAnswer2;
     // Game difficulty 1
 
     // Game difficulty 2
 
     // Game difficulty 3
+
+    // return value
+    return bCorrect;
 }
 */
