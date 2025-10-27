@@ -84,7 +84,7 @@ Returns: int (the player number winner)
     a. An if statement for each player's turn to skip eliminated player we use a helper function (if checkPlayer(nCurrentPlayer, nPlayer1, nPlayer2, nPlayer3, nPlayer4) > 0)
         i.Roll dice (This be done via a helper function called RollDie())
         ii.Answer the sequence question
-            A. Create an external function called externalSequence() that return either the player answer correct or not
+            A. Create an external function called answerSequence() that return either the player answer correct or not
         iii.Move the player space
         iv.Ask the following if statements to figure out which nPlayer to move
             A. if nCurrentPlayer = 1 (nPlayer1 + or - the amount of space) and so on...
