@@ -70,7 +70,9 @@ int gameLoop(int nNumberOfPlayers, int nGameLevel){
     int nCurrentPlayerTurn = 1;
     //int nNumberOfEliminated = 0; (these are to be used in future versions)
     int nPlayerWinner;
+    int nDieValue;
     //bool bPlayerWon = false; (these are to be used in future versions)
+    // TEST nPlaceHolder to be removed in the final version
     int nPlaceHolder = 0;
 
     // Use switch case to set individual player variables
@@ -104,29 +106,30 @@ int gameLoop(int nNumberOfPlayers, int nGameLevel){
             break;
     }
 
-    // The following print statement below are to test the rollDie function
+    // TEST The following print statement below is to test the rollDie function
     printf("Before the game: player1: %d, player2: %d, player3: %d, player4: %d\n", nPlayer1, nPlayer2, nPlayer3, nPlayer4);
 
     // The main while loop that continues until a winner is selected or all players are eliminated
-    while (nPlaceHolder < 9){ // This is just to see if it will loop  nine times it will soon be changed to while(bPlayerWon == false && nNumberOfEliminated != nNumberOfPlayers)
-        // A secondary while loop that loops for every player's turn
+    while (nPlaceHolder < 9){ // TEST This is just to see if it will loop  nine times it will soon be changed to while(bPlayerWon == false && nNumberOfEliminated != nNumberOfPlayers)
+        // An if statement for every player's turn
         if (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) > 0){
-            // Roll the die and move the current player
+            // Roll the die and move the current player 
+            nDieValue = rollDie();
             switch (nCurrentPlayerTurn){
                 case 1:
-                    nPlayer1 += rollDie();
+                    nPlayer1 += nDieValue;
                     break;
                 
                 case 2:
-                    nPlayer2 += rollDie();
+                    nPlayer2 += nDieValue;
                     break;
 
                 case 3:
-                    nPlayer3 += rollDie();
+                    nPlayer3 += nDieValue;
                     break;
 
                 case 4:
-                    nPlayer4 += rollDie();
+                    nPlayer4 += nDieValue;
                     break;
             }
 
@@ -134,7 +137,7 @@ int gameLoop(int nNumberOfPlayers, int nGameLevel){
 
             // Move the player's position or current space if wrong
 
-            // This piece of code is just see the loop in action currently
+            // TEST This piece of code is just see the loop in action currently
             printf("Player %d turn done!\n", nCurrentPlayerTurn);
         }
 
@@ -142,21 +145,24 @@ int gameLoop(int nNumberOfPlayers, int nGameLevel){
         if (nCurrentPlayerTurn == nNumberOfPlayers){
                 nCurrentPlayerTurn = 1;
         }
+        else if (nDieValue == 6){
+            nCurrentPlayerTurn += 0;
+        }
         else{
             nCurrentPlayerTurn++;
         } 
 
-        // Update the temporary placeholder
+        // TEST Update the temporary placeholder
         nPlaceHolder++;
         
 
     }
 
-    // The following print statement below are to test the rollDie function
+    // TEST The following print statement below are to test the rollDie function
     printf("Before the game: player1: %d, player2: %d, player3: %d, player4: %d\n", nPlayer1, nPlayer2, nPlayer3, nPlayer4);
 
     nPlayerWinner = 1;
-    return nPlayerWinner; // 1 here is to just test the print function on main
+    return nPlayerWinner; // TEST 1 here is to just test the print function on main
 }
 
 /* Description: This is the checkPlayer function to pair the current player to the status of players. This is to ensure we skip eliminated or non-existent players. 
@@ -199,6 +205,9 @@ int rollDie(void){
     return (nMin + rand() % (nMax - nMin + 1));
 }
 
+
+
+/*
 bool answerSequence(int nGameLevel){
     // Declaration of variables
 
@@ -208,3 +217,4 @@ bool answerSequence(int nGameLevel){
 
     // Game difficulty 3
 }
+*/

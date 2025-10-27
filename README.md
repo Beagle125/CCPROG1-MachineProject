@@ -78,7 +78,8 @@ Returns: int (the player number winner)
     a. Storing the current space number of a player and setting it to 1 or 0 this can be called nPlayer1 or nPlayer2. This depends on the nNumberOfPlayers and using Switch Case.
     b. A variable called nCurrentPlayerTurn that keeps track of which player's turn, set this equal to 1.
     c. A variable that keeps track of the number of players eliminated nNumberOfEliminated = 0.
-    d. A variable that keeps track if a player has won already bPlayerWon = false
+    d. A variable  called nDieValue that stores the die value of a current turn 
+    e. A variable that keeps track if a player has won already bPlayerWon = false
 2. This will be initialized in a while loop for the whole game loop (while bPlayerWon == false and while nNumberOfEliminated != nNumberOfPlayers)
     a. An if statement for each player's turn to skip eliminated player we use a helper function (if checkPlayer(nCurrentPlayer, nPlayer1, nPlayer2, nPlayer3, nPlayer4) > 0)
         i.Roll dice (This be done via a helper function called RollDie())
@@ -91,7 +92,8 @@ Returns: int (the player number winner)
                 2. Ask this if statement to see if the player already won if nPlayer1 == 50  (bPlayerWon = true)
     b. Ask the following if statements to update the current player
         i. if nCurrentPlayer == nNumberOfPlayers (nCurrentPlayer = 1)
-        ii. else (nCurrentPlayerTurn++)
+        ii. else if nDieValue == 6 (nCurrentPlayerTurn += 0)
+        iii. else (nCurrentPlayerTurn++)
 3. Ask the following if statements
     a. if nNumberOfEliminated != nNumberOfPlayers (return 0 players won)
     b. else if bPlayerWon == true (return the player that won)
