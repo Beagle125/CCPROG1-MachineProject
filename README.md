@@ -120,9 +120,11 @@ Returns: a boolean value whether the player is able to answer correctly or not
     int nSequence - the number being added to the sequence (-10, 10)
     int nAnswer - the answer to the sequence
     int nAnswer2 - for difficulty 2 and 3
+    int playerInput - the answer of the player
     char cFirst - if numerical sequence, this will be the first char in the sequence (A to Z)
     char cAnswer - the answer to the sequence
     char cAnswer2 - for difficulty 2 and 3
+    char playerInput - the answer of the player
 2. Generate a random number between 0 and 1, thus 0 = numerical and 1 = alpha.
 
 3. If numerical generate a random number for nFirst between (-50 to 50)

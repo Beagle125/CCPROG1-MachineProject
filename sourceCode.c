@@ -27,7 +27,7 @@ Acknowledgements:
 int gameLoop(int nNumberOfPlayers, int nGameLevel);
 int checkPlayer(int nCurrentPlayerTurn, int nPlayer1, int nPlayer2, int nPlayer3, int nPlayer4);
 int rollDie(void);
-bool answerSequence(int nGameLevel);
+bool answerSequence(int nGameLevel, int nCurrentPlayerTurn);
 
 /* Description: This is the main function of the program. 
 Precondition: N/A
@@ -134,6 +134,7 @@ int gameLoop(int nNumberOfPlayers, int nGameLevel){
             }
 
             // Answering the question
+            answerSequence(nGameLevel, nCurrentPlayerTurn);
 
             // Move the player's position or current space if wrong
 
@@ -159,7 +160,7 @@ int gameLoop(int nNumberOfPlayers, int nGameLevel){
     }
 
     // TEST The following print statement below are to test the rollDie function
-    printf("Before the game: player1: %d, player2: %d, player3: %d, player4: %d\n", nPlayer1, nPlayer2, nPlayer3, nPlayer4);
+    printf("\nAfter the game: player1: %d, player2: %d, player3: %d, player4: %d\n", nPlayer1, nPlayer2, nPlayer3, nPlayer4);
 
     nPlayerWinner = 1;
     return nPlayerWinner; // TEST 1 here is to just test the print function on main
@@ -209,19 +210,65 @@ int rollDie(void){
 
 
 
-/*
-bool answerSequence(int nGameLevel){
+/* Description: TODO
+Precondition: TODO
+@param TODO
+@return TODO
+*/
+bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     // Declaration of variables
     bool bCorrect = false;
-    int nGenerate;
-    int nFirst;
-    int nSequence;
-    int nAnswer;
-    int nAnswer2;
-    char cFirst;
-    char cAnswer;
-    char cAnswer2;
+    int nGenerate = 0;
+    int nFirst = 0;
+    int nSequence = 0;
+    int nAnswer = 0;
+    //int nAnswer2 = 0;
+    int nPlayerInput = 0;
+    char cFirst = 'a';
+    char cAnswer = 'a';
+    //char cAnswer2 = 'a';
+    char cPlayerInput = 'a';
+    
+    // Call out the current player
+    printf("\nPlayer %d...your question\n", nCurrentPlayerTurn);
+    // Generate a random number for letters or numbers
+    srand(time(NULL));
+    nGenerate = (0 + rand() % (2));
+
     // Game difficulty 1
+    if (nGameLevel == 1){
+        if (nGenerate == 0){
+            nFirst = (-50 + rand() % (101));
+            nSequence = (-10 + rand() % (21));
+            nAnswer = nFirst;
+            printf("What is the next number in the sequence: ");
+            for (int i = 0; i < 5; i++){
+                printf("%d ", nAnswer);
+                nAnswer += nSequence;
+            }
+            printf("\nYour answer: ");
+            scanf("%d", &nPlayerInput);
+        }
+        else{
+            cFirst = 'A' + (rand() % 26);
+            nSequence = (-10 + rand() % (21));
+            cAnswer = cFirst;
+            printf("What is the next letter in the sequence: ");
+            for (int i = 0; i < 5; i++){
+                printf("%c ", cAnswer);
+                for (int j = 0; j < nSequence; j++){
+                    if (cAnswer == 90){
+                        cAnswer = 'A';
+                    }
+                    else{
+                        cAnswer += 1;
+                    }
+                }
+            }
+            printf("\nYour answer: ");
+            scanf(" %c", &cPlayerInput);
+        }
+    }
 
     // Game difficulty 2
 
@@ -230,4 +277,4 @@ bool answerSequence(int nGameLevel){
     // return value
     return bCorrect;
 }
-*/
+
