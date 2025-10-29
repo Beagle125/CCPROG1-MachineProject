@@ -72,6 +72,7 @@ int gameLoop(int nNumberOfPlayers, int nGameLevel){
     int nPlayerWinner;
     int nDieValue;
     //bool bPlayerWon = false; (these are to be used in future versions)
+    // THIS IS TO BE ADDED char cRoll;
     // TEST nPlaceHolder to be removed in the final version
     int nPlaceHolder = 0;
 
@@ -114,7 +115,9 @@ int gameLoop(int nNumberOfPlayers, int nGameLevel){
         // An if statement for every player's turn
         if (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) > 0){
             // Roll the die and move the current player 
+           // THIS IS TO BE ADDED printf("Player %d, press ENTER to roll the dice...", nCurrentPlayerTurn);
             nDieValue = rollDie();
+            printf("\nPlayer %d rolled a %d\n", nCurrentPlayerTurn, nDieValue);
             switch (nCurrentPlayerTurn){
                 case 1:
                     nPlayer1 += nDieValue;
@@ -246,8 +249,10 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
                 printf("%d ", nAnswer);
                 nAnswer += nSequence;
             }
+            printf("\n");
             printf("\nYour answer: ");
             scanf("%d", &nPlayerInput);
+            printf("\n");
         }
         else{
             cFirst = 'A' + (rand() % 26);
@@ -265,8 +270,10 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
                     }
                 }
             }
+            printf("\n");
             printf("\nYour answer: ");
             scanf(" %c", &cPlayerInput);
+            printf("\n");
         }
     }
 

@@ -80,6 +80,7 @@ Returns: int (the player number winner)
     c. A variable that keeps track of the number of players eliminated nNumberOfEliminated = 0.
     d. A variable  called nDieValue that stores the die value of a current turn 
     e. A variable that keeps track if a player has won already bPlayerWon = false
+    f. A variable called cRoll that contains the ENTER or other character to roll the dice action
 2. This will be initialized in a while loop for the whole game loop (while bPlayerWon == false and while nNumberOfEliminated != nNumberOfPlayers)
     a. An if statement for each player's turn to skip eliminated player we use a helper function (if checkPlayer(nCurrentPlayer, nPlayer1, nPlayer2, nPlayer3, nPlayer4) > 0)
         i.Roll dice (This be done via a helper function called RollDie())
