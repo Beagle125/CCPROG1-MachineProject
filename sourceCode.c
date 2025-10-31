@@ -345,7 +345,45 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     }
 
     // Game difficulty 3
+    else{
+        cFirst = 'A' + (rand() % 26);;
+        nSequence = (-10 + rand() % (21));
+        cAnswer = cFirst;
+        printf("What are the next two numbers and letters in the sequence: ");
+        for (int i = 0; i < 5; i++){
+            printf("%c ", cAnswer);
+            for (int j = 0; j < nSequence; j++){
+                if (cAnswer == 90){
+                    cAnswer = 'A';
+                }
+                else{
+                    cAnswer += 1;
+                }
+            } 
 
+            printf("%d ", (int)cAnswer); 
+
+            for (int j = 0; j < nSequence; j++){
+                if (cAnswer == 90){
+                    cAnswer = 'A';
+                }
+                else{
+                    cAnswer += 1;
+                }
+            } 
+        }
+        nAnswer = cAnswer + 1;
+        printf("\n");
+        printf("\nYour two answers: ");
+        scanf(" %c %d", &cPlayerInput, &nPlayerInput);
+        printf("\n");
+        if (cPlayerInput == cAnswer && nPlayerInput == nAnswer){
+            bCorrect = true;
+        }
+        else{
+            bCorrect = false;
+        }
+    }
     // return value
     return bCorrect;
 }
