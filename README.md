@@ -144,10 +144,4 @@ Returns: a boolean value whether the player is able to answer correctly or not
     i. cFirst += 1
     ii if cFirst > Z reset it to A
     
-
-
-
-
-
-
 return bCorrect
