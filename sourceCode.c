@@ -225,12 +225,14 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     int nFirst = 0;
     int nSequence = 0;
     int nAnswer = 0;
-    //int nAnswer2 = 0;
+    int nAnswer2 = 0;
     int nPlayerInput = 0;
+    int nPlayerInput2 = 0;
     char cFirst = 'a';
     char cAnswer = 'a';
-    //char cAnswer2 = 'a';
+    char cAnswer2 = 'a';
     char cPlayerInput = 'a';
+    char cPlayerInput2 = 'a';
     
     // Call out the current player
     printf("\nPlayer %d...your question\n", nCurrentPlayerTurn);
@@ -253,6 +255,12 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
             printf("\nYour answer: ");
             scanf("%d", &nPlayerInput);
             printf("\n");
+            if (nPlayerInput == nAnswer){
+                bCorrect = true;
+            }
+            else{
+                bCorrect = false;
+            }
         }
         else{
             cFirst = 'A' + (rand() % 26);
@@ -274,10 +282,67 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
             printf("\nYour answer: ");
             scanf(" %c", &cPlayerInput);
             printf("\n");
+            if (cPlayerInput == cAnswer){
+                bCorrect = true;
+            }
+            else{
+                bCorrect = false;
+            }
         }
     }
 
     // Game difficulty 2
+    else if (nGameLevel == 2){
+        if (nGenerate == 0){
+            nFirst = (-50 + rand() % (101));
+            nSequence = (-10 + rand() % (21));
+            nAnswer = nFirst;
+            printf("What are the next two numbers in the sequence: ");
+            for (int i = 0; i < 5; i++){
+                printf("%d ", nAnswer);
+                nAnswer += nSequence;
+            }
+            nAnswer2 = nAnswer + nSequence;
+            printf("\n");
+            printf("\nYour two answers: ");
+            scanf("%d %d", &nPlayerInput, &nPlayerInput2);
+            printf("\n");
+            if (nPlayerInput == nAnswer && nPlayerInput2 == nAnswer2){
+                bCorrect = true;
+            }
+            else{
+                bCorrect = false;
+            }
+        }
+        else{
+            cFirst = 'A' + (rand() % 26);
+            nSequence = (-10 + rand() % (21));
+            cAnswer = cFirst;
+            printf("What are the next two letters in the sequence: ");
+            for (int i = 0; i < 5; i++){
+                printf("%c ", cAnswer);
+                for (int j = 0; j < nSequence; j++){
+                    if (cAnswer == 90){
+                        cAnswer = 'A';
+                    }
+                    else{
+                        cAnswer += 1;
+                    }
+                }
+            }
+            cAnswer2 = cAnswer + nSequence;
+            printf("\n");
+            printf("\nYour two answers: ");
+            scanf(" %c %c", &cPlayerInput, &cPlayerInput2);
+            printf("\n");
+            if (cPlayerInput == cAnswer && cPlayerInput2 == cAnswer2){
+                bCorrect = true;
+            }
+            else{
+                bCorrect = false;
+            }
+        }
+    }
 
     // Game difficulty 3
 
