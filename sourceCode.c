@@ -221,7 +221,8 @@ int rollDie(void){
 Precondition: The player has already rolled the dice and is currently answering the question
 @param nGameLevel nCurrentPlayerTurn
 @return a boolean value that indicated if the player answered the question correctly or not
-Bugs: Currently there is a bug where if the player gives a wrong input stuff goes wrong.
+Bugs: 
+1. Currently there is a bug where if the player gives a wrong input stuff goes wrong.
 */
 bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     // Declaration of variables
@@ -244,12 +245,13 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     // Generate a random number for letters or numbers
     srand(time(NULL));
     nGenerate = (0 + rand() % (2));
+    // Generate a random number for the sequence
+    nSequence = (-10 + rand() % (21));
 
     // Game difficulty 1
     if (nGameLevel == 1){
         if (nGenerate == 0){
             nFirst = (-50 + rand() % (101));
-            nSequence = (-10 + rand() % (21));
             nAnswer = nFirst;
             printf("What is the next number in the sequence: ");
             for (int i = 0; i < 5; i++){
@@ -269,7 +271,6 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
         }
         else{
             cFirst = 'A' + (rand() % 26);
-            nSequence = (-10 + rand() % (21));
             cAnswer = cFirst;
             printf("What is the next letter in the sequence: ");
             for (int i = 0; i < 5; i++){
@@ -300,7 +301,6 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     else if (nGameLevel == 2){
         if (nGenerate == 0){
             nFirst = (-50 + rand() % (101));
-            nSequence = (-10 + rand() % (21));
             nAnswer = nFirst;
             printf("What are the next two numbers in the sequence: ");
             for (int i = 0; i < 5; i++){
@@ -321,7 +321,6 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
         }
         else{
             cFirst = 'A' + (rand() % 26);
-            nSequence = (-10 + rand() % (21));
             cAnswer = cFirst;
             printf("What are the next two letters in the sequence: ");
             for (int i = 0; i < 5; i++){
@@ -351,8 +350,7 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
 
     // Game difficulty 3
     else{
-        cFirst = 'A' + (rand() % 26);;
-        nSequence = (-10 + rand() % (21));
+        cFirst = 'A' + (rand() % 26);
         cAnswer = cFirst;
         printf("What are the next two numbers and letters in the sequence: ");
         for (int i = 0; i < 5; i++){
