@@ -74,6 +74,7 @@ int gameLoop(int nNumberOfPlayers, int nGameLevel){
     int nPlayerWinner;
     int nDieValue;
     //bool bPlayerWon = false; (these are to be used in future versions)
+    bool bPlayerCorrect = false;
     // THIS IS TO BE ADDED char cRoll;
     // TEST nPlaceHolder to be removed in the final version
     int nPlaceHolder = 0;
@@ -116,6 +117,8 @@ int gameLoop(int nNumberOfPlayers, int nGameLevel){
     while (nPlaceHolder < 9){ // TEST This is just to see if it will loop  nine times it will soon be changed to while(bPlayerWon == false && nNumberOfEliminated != nNumberOfPlayers)
         // An if statement for every player's turn
         if (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) > 0){
+            // Greet the current player
+            printf("-----------------------PLAYER %d \'s TURN-----------------------", nCurrentPlayerTurn);
             // Roll the die and move the current player 
            // THIS IS TO BE ADDED printf("Player %d, press ENTER to roll the dice...", nCurrentPlayerTurn);
             nDieValue = rollDie();
@@ -139,10 +142,15 @@ int gameLoop(int nNumberOfPlayers, int nGameLevel){
             }
 
             // Answering the question
-            answerSequence(nGameLevel, nCurrentPlayerTurn);
+            bPlayerCorrect =  answerSequence(nGameLevel, nCurrentPlayerTurn);
 
-            // Move the player's position or current space if wrong
-
+            // Move the player's position or current space if wrong (Add the going back feature soon)
+            if (bPlayerCorrect == false){
+                printf("Player %d got it INCORRECT!\n", nCurrentPlayerTurn);
+            }
+            else{
+                printf("Player %d got it CORRECT!\n", nCurrentPlayerTurn);
+            }
             // TEST This piece of code is just see the loop in action currently
             printf("Player %d turn done!\n", nCurrentPlayerTurn);
         }
@@ -223,6 +231,9 @@ Precondition: The player has already rolled the dice and is currently answering 
 @return a boolean value that indicated if the player answered the question correctly or not
 Bugs: 
 1. Currently there is a bug where if the player gives a wrong input stuff goes wrong.
+2. There is a bug that somehow causes problem in the alpha sequence. Generating A A A A A or so, but the sequence is not 0?
+    Causes: Its stems from when nSequence is negative. It also occurs where the char of nAnswer2 is not a letter anymore.
+3. There is a bug a difficulty 3 regarding how cAnswer and nAnswer relate to each other. 
 */
 bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     // Declaration of variables
@@ -246,7 +257,12 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     srand(time(NULL));
     nGenerate = (0 + rand() % (2));
     // Generate a random number for the sequence
-    nSequence = (-10 + rand() % (21));
+    if (nGenerate == 0){
+        nSequence = (-10 + rand() % (21));
+    }
+    else{
+        nSequence = (1 + rand() % (11));
+    }
 
     // Game difficulty 1
     if (nGameLevel == 1){
@@ -334,7 +350,15 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
                     }
                 }
             }
-            cAnswer2 = cAnswer + nSequence;
+            cAnswer2 = cAnswer;
+            for (int i = 0; i < nSequence; i++){
+                if (cAnswer2 == 90){
+                    cAnswer2 = 'A';
+                }
+                else{
+                    cAnswer2 += 1;
+                }   
+            }
             printf("\n");
             printf("\nYour two answers: ");
             scanf(" %c %c", &cPlayerInput, &cPlayerInput2);
@@ -364,7 +388,7 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
                 }
             } 
 
-            printf("%d ", (int)cAnswer); 
+            printf("%d ", (int)cAnswer - 64); 
 
             for (int j = 0; j < nSequence; j++){
                 if (cAnswer == 90){
@@ -375,7 +399,9 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
                 }
             } 
         }
-        nAnswer = cAnswer + 1;
+
+        nAnswer = (int)cAnswer + nSequence;
+
         printf("\n");
         printf("\nYour two answers: ");
         scanf(" %c %d", &cPlayerInput, &nPlayerInput);
