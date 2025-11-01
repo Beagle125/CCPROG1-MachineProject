@@ -33,6 +33,7 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn);
 Precondition: N/A
 @param void
 @return integer 0 for the successful execution of the program.
+Bugs: Inputting a wrong value for scanf causes stuff to go wrong
 */
 int main (void){
     // Initialize important variables
@@ -63,6 +64,7 @@ int main (void){
 Precondition: The number of players and game level are inputted by the user.
 @param int nNumberOfPlayer, int nGameLevel
 @return int nPlayerWinner.
+Bugs: None
 */
 int gameLoop(int nNumberOfPlayers, int nGameLevel){
     // Initialize important variables
@@ -173,6 +175,7 @@ int gameLoop(int nNumberOfPlayers, int nGameLevel){
 Precondition: The current player and all possible four players.
 @param int nCurrentPlayerTurn, int nPlayer1, int nPlayer2, int nPlayer3, int nPlayer4
 @return either nReturnPLayer which is set to either nPlayer1, nPlayer2, nPlayer3, or nPlayer4.
+Bugs: None
 */
 int checkPlayer(int nCurrentPlayerTurn, int nPlayer1, int nPlayer2, int nPlayer3, int nPlayer4){
     int nReturnPlayer;
@@ -197,15 +200,16 @@ int checkPlayer(int nCurrentPlayerTurn, int nPlayer1, int nPlayer2, int nPlayer3
 Precondition: It is currently a player's turn
 @param void
 @return a random integer between 1 and 6
+Bugs: None
 */
 
-// (POTENTIAL ISSUE)
+
 int rollDie(void){
     // Initialize nMin and nMax
     int nMin = 1;
     int nMax = 6;
 
-    // Generate a random number (This might be generating the same number)
+    // Generate a random number
     srand(time(NULL));
 
     return (nMin + rand() % (nMax - nMin + 1));
@@ -213,10 +217,11 @@ int rollDie(void){
 
 
 
-/* Description: TODO
-Precondition: TODO
-@param TODO
-@return TODO
+/* Description: This variable handles the sequence of the player answering a question
+Precondition: The player has already rolled the dice and is currently answering the question
+@param nGameLevel nCurrentPlayerTurn
+@return a boolean value that indicated if the player answered the question correctly or not
+Bugs: Currently there is a bug where if the player gives a wrong input stuff goes wrong.
 */
 bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     // Declaration of variables
