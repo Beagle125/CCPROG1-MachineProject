@@ -33,7 +33,8 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn);
 Precondition: N/A
 @param void
 @return integer 0 for the successful execution of the program.
-Bugs: Inputting a wrong value for scanf causes stuff to go wrong
+Bugs: 
+1. Inputting a wrong value for scanf causes stuff to go wrong
 */
 int main (void){
     // Initialize important variables
