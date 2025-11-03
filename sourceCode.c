@@ -28,6 +28,7 @@ int gameLoop(int nNumberOfPlayers, int nGameLevel);
 int checkPlayer(int nCurrentPlayerTurn, int nPlayer1, int nPlayer2, int nPlayer3, int nPlayer4);
 int rollDie(void);
 bool answerSequence(int nGameLevel, int nCurrentPlayerTurn);
+void updateNumericalAnswer(int nSequence, int *nAnswer);
 
 /* Description: This is the main function of the program. 
 Precondition: N/A
@@ -240,17 +241,17 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     // Declaration of variables
     bool bCorrect = false;
     int nGenerate = 0;
-    int nFirst = 0;
+    int nFirst = 0; // TO BE REMOVED
     int nSequence = 0;
     int nAnswer = 0;
-    int nAnswer2 = 0;
+    int nAnswer2 = 0; // difficulty 2
     int nPlayerInput = 0;
-    int nPlayerInput2 = 0;
-    char cFirst = 'a';
-    char cAnswer = 'a';
-    char cAnswer2 = 'a';
+    int nPlayerInput2 = 0; // difficulty 2
+    char cFirst = 'a'; // TO BE REMOVED
+    char cAnswer = 'a'; 
+    char cAnswer2 = 'a'; // diffculty 2
     char cPlayerInput = 'a';
-    char cPlayerInput2 = 'a';
+    char cPlayerInput2 = 'a'; // difficulty 2
     
     // Call out the current player
     printf("\nPlayer %d...your question\n", nCurrentPlayerTurn);
@@ -268,13 +269,9 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     // Game difficulty 1
     if (nGameLevel == 1){
         if (nGenerate == 0){
-            nFirst = (-50 + rand() % (101));
-            nAnswer = nFirst;
+            nAnswer = (-50 + rand() % (101));
             printf("What is the next number in the sequence: ");
-            for (int i = 0; i < 5; i++){
-                printf("%d ", nAnswer);
-                nAnswer += nSequence;
-            }
+            updateNumericalAnswer(nSequence, &nAnswer);
             printf("\n");
             printf("\nYour answer: ");
             scanf("%d", &nPlayerInput);
@@ -320,10 +317,7 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
             nFirst = (-50 + rand() % (101));
             nAnswer = nFirst;
             printf("What are the next two numbers in the sequence: ");
-            for (int i = 0; i < 5; i++){
-                printf("%d ", nAnswer);
-                nAnswer += nSequence;
-            }
+            updateNumericalAnswer(nSequence, &nAnswer);
             nAnswer2 = nAnswer + nSequence;
             printf("\n");
             printf("\nYour two answers: ");
@@ -432,3 +426,9 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     return bCorrect;
 }
 
+void updateNumericalAnswer(int nSequence, int *nAnswer){
+    for (int i = 0; i < 5; i++){
+        printf("%d ", *nAnswer);
+        *nAnswer += nSequence;
+    }
+}

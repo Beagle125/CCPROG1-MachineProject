@@ -118,12 +118,10 @@ Returns: a boolean value whether the player is able to answer correctly or not
 1. Declare some variables: 
     bool bCorrect - returns the value of true or false to indicate player'success (true or false)
     int nGenerate - indicates if either a numerical or alpha sequence will be generated (0 or 1)
-    int nFirst - if numerical sequence, this will be the first number in the sequence (-50 to 50)
     int nSequence - the number being added to the sequence (-10, 10)
     int nAnswer - the answer to the sequence
     int nAnswer2 - for difficulty 2 and 3
     int playerInput - the answer of the player
-    char cFirst - if numerical sequence, this will be the first char in the sequence (A to Z)
     char cAnswer - the answer to the sequence
     char cAnswer2 - for difficulty 2 and 3
     char playerInput - the answer of the player
@@ -146,6 +144,10 @@ Returns: a boolean value whether the player is able to answer correctly or not
     ii if cFirst > Z reset it to A
     
 12. return bCorrect
+
+###Updating the answer helper function (Numerical)
+Name: updateNumericalAnswer()
+Parameter: int nSequence, int *nAnswer
 
 ##Notes Regarding issues and bugs
 1. main()
