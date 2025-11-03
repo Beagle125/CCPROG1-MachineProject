@@ -148,11 +148,18 @@ Returns: a boolean value whether the player is able to answer correctly or not
 ###Updating the answer helper function (Numerical)
 Name: updateNumericalAnswer()
 Parameter: int nSequence, int *nAnswer
+Returns: Void (Only updates the pointer parameter)
+    1. This function contains the loop for updating and printing out the current value of nAnswer.
 
+###Updating the answer helper function (Alphabetical)
+Name: updateAlphaAnswer()
+Parameter: int nSequence, int nGameDifficulty, char *cAnswer, char *cAnswer2
+Returns: Void (Only updates the pointer parameter)
+    1. This function contains the conditions and picks the right loop to update the cAnswer and or cAnswer2.
 ##Notes Regarding issues and bugs
 1. main()
     i. Bug 1 is unresolved
 2. answerSequence
     i. Bug 1 is unresolved
-    ii. Bug 2 is resolved where if the sequence is letters it only goes up.
+    ii. Bug 2 is resolved 
     iii. Bug 3 is resolved.
