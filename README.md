@@ -147,10 +147,10 @@ Returns: a boolean value whether the player is able to answer correctly or not
     
 12. return bCorrect
 
-###Notes Regarding issues and bugs
+##Notes Regarding issues and bugs
 1. main()
     i. Bug 1 is unresolved
 2. answerSequence
     i. Bug 1 is unresolved
     ii. Bug 2 is resolved where if the sequence is letters it only goes up.
-    iii. Bug 3 is unresolved.
+    iii. Bug 3 is resolved.

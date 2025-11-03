@@ -234,7 +234,7 @@ Bugs:
 1. Currently there is a bug where if the player gives a wrong input stuff goes wrong.
 2. There is a bug that somehow causes problem in the alpha sequence. Generating A A A A A or so, but the sequence is not 0?
     Causes: Its stems from when nSequence is negative. It also occurs where the char of nAnswer2 is not a letter anymore.
-3. There is a bug a difficulty 3 regarding how cAnswer and nAnswer relate to each other. 
+3. There is a bug at difficulty 3 regarding how cAnswer and nAnswer relate to each other. 
 */
 bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     // Declaration of variables
@@ -379,7 +379,6 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
         cAnswer = cFirst;
         printf("What are the next two numbers and letters in the sequence: ");
         for (int i = 0; i < 5; i++){
-            printf("%c ", cAnswer);
             for (int j = 0; j < nSequence; j++){
                 if (cAnswer == 90){
                     cAnswer = 'A';
@@ -387,22 +386,37 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
                 else{
                     cAnswer += 1;
                 }
-            } 
-
-            printf("%d ", (int)cAnswer - 64); 
-
-            for (int j = 0; j < nSequence; j++){
-                if (cAnswer == 90){
-                    cAnswer = 'A';
-                }
-                else{
-                    cAnswer += 1;
-                }
-            } 
+            }
+            if (i % 2 != 0){
+                printf(" %c", cAnswer);
+            }
+            else{
+                printf(" %d", (int)cAnswer - 64);
+            }
+              
         }
 
-        nAnswer = (int)cAnswer + nSequence;
+        for (int i = 0; i < nSequence; i++){
+            if (cAnswer == 90){
+                cAnswer = 'A';
+            }
+            else{
+                cAnswer += 1;
+            }
+        }
 
+        nAnswer = (int)cAnswer;
+        for (int i = 0; i < nSequence; i++){
+            if (nAnswer == 90){
+                nAnswer = 65;
+            }
+            else{
+                nAnswer += 1;
+            }
+        }
+
+        nAnswer -= 64;
+    
         printf("\n");
         printf("\nYour two answers: ");
         scanf(" %c %d", &cPlayerInput, &nPlayerInput);
