@@ -335,50 +335,12 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     else{
         cAnswer = 'A' + (rand() % 26);
         printf("What are the next two numbers and letters in the sequence: ");
-        for (int i = 0; i < 5; i++){
-            for (int j = 0; j < nSequence; j++){
-                if (cAnswer == 90){
-                    cAnswer = 'A';
-                }
-                else{
-                    cAnswer += 1;
-                }
-            }
-            if (i % 2 != 0){
-                printf(" %c", cAnswer);
-            }
-            else{
-                printf(" %d", (int)cAnswer - 64);
-            }
-              
-        }
-
-        for (int i = 0; i < nSequence; i++){
-            if (cAnswer == 90){
-                cAnswer = 'A';
-            }
-            else{
-                cAnswer += 1;
-            }
-        }
-
-        nAnswer = (int)cAnswer;
-        for (int i = 0; i < nSequence; i++){
-            if (nAnswer == 90){
-                nAnswer = 65;
-            }
-            else{
-                nAnswer += 1;
-            }
-        }
-
-        nAnswer -= 64;
-    
+        updateAlphaAnswer(nSequence, nGameLevel, &cAnswer, &cAnswer2);
         printf("\n");
         printf("\nYour two answers: ");
         scanf(" %c %d", &cPlayerInput, &nPlayerInput);
         printf("\n");
-        if (cPlayerInput == cAnswer && nPlayerInput == nAnswer){
+        if (cPlayerInput == cAnswer && nPlayerInput == (int)(cAnswer2 - 64)){
             bCorrect = true;
         }
         else{
@@ -461,6 +423,72 @@ void updateAlphaAnswer(int nSequence, int nGameDifficulty, char *cAnswer, char *
         }
         else{
             for (int j = 0; j > nSequence; j--){
+                if (*cAnswer2 == 65){
+                    *cAnswer2 = 'Z';
+                }
+                else{
+                    *cAnswer2 -= 1;
+                }
+            }
+        }
+    }
+    else{
+        if (nSequence >= 0){
+            for (int i = 0; i < 5; i++){
+
+                if (i % 2 != 0){
+                    printf(" %c", *cAnswer);
+                }
+                else{
+                    printf(" %d", (int)*cAnswer - 64);
+                }
+
+                for (int j = 0; j < nSequence; j++){
+                    if (*cAnswer == 90){
+                        *cAnswer = 'A';
+                    }
+                    else{
+                        *cAnswer += 1;
+                    }
+                }
+
+            }
+
+            // Update cAnswer2
+            *cAnswer2 = *cAnswer;
+            for (int i = 0; i < nSequence; i++){
+                if (*cAnswer2 == 90){
+                    *cAnswer2 = 'A';
+                }
+                else{
+                    *cAnswer2 += 1;
+                }
+            }
+        }
+        else{
+            for (int i = 0; i < 5; i++){
+
+                if (i % 2 != 0){
+                    printf(" %c", *cAnswer);
+                }
+                else{
+                    printf(" %d", (int)*cAnswer - 64);
+                }
+
+                for (int j = 0; j > nSequence; j--){
+                    if (*cAnswer == 65){
+                        *cAnswer = 'Z';
+                    }
+                    else{
+                        *cAnswer -= 1;
+                    }
+                }
+
+            }
+            
+            // Update cAnswer2
+            *cAnswer2 = *cAnswer;
+            for (int i = 0; i > nSequence; i--){
                 if (*cAnswer2 == 65){
                     *cAnswer2 = 'Z';
                 }
