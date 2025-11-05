@@ -18,6 +18,7 @@ Acknowledgements:
 */
 
 //Preprocessor Directives
+#include <ctype.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -287,6 +288,9 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
             printf("\nYour answer: ");
             scanf(" %c", &cPlayerInput);
             printf("\n");
+
+            // make player input uppercase all the time
+            cPlayerInput = toupper(cPlayerInput);
             if (cPlayerInput == cAnswer){
                 bCorrect = true;
             }
@@ -322,6 +326,10 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
             printf("\nYour two answers: ");
             scanf(" %c %c", &cPlayerInput, &cPlayerInput2);
             printf("\n");
+
+            // make player input uppercase all the time
+            cPlayerInput = toupper(cPlayerInput);
+            cPlayerInput2 = toupper(cPlayerInput2);
             if (cPlayerInput == cAnswer && cPlayerInput2 == cAnswer2){
                 bCorrect = true;
             }
@@ -340,6 +348,9 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
         printf("\nYour two answers: ");
         scanf(" %c %d", &cPlayerInput, &nPlayerInput);
         printf("\n");
+
+        // make player input uppercase all the time
+        cPlayerInput = toupper(cPlayerInput);
         if (cPlayerInput == cAnswer && nPlayerInput == (int)(cAnswer2 - 64)){
             bCorrect = true;
         }
