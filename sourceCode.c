@@ -36,27 +36,31 @@ void updateAlphaAnswer(int nSequence, int nGameDifficulty, char *cAnswer, char *
 Precondition: N/A
 @param void
 @return integer 0 for the successful execution of the program.
-Bugs: 
-1. Inputting a wrong value for scanf causes stuff to go wrong
 */
 int main (void){
     // Initialize important variables
-    int nNumberOfPlayers, nGameLevel, nPlayerWinner;
+    int nNumberOfPlayers, nGameLevel, nPlayerWinner, nCheckPlayers = -1, nCheckLevel = -1;
 
     //Print a welcoming message
     printf("Welcome to a \"Walk in the Sequence Park\"\n");
+
     // Prompt and input nNumberOfPLayers
-    do{
+    do{     
         printf("\nHow many players will play? ");
-        scanf("%d", &nNumberOfPlayers);
-    }while (nNumberOfPlayers > 4 || nNumberOfPlayers < 1);
+        nCheckPlayers =  scanf("%d", &nNumberOfPlayers);
+        while (getchar() != '\n');
+    }while (nNumberOfPlayers > 4 || nNumberOfPlayers < 1 || nCheckPlayers != 1);
+
     // Prompt and input nGameLevel
     do{
         printf("\nSelect a difficulty level: ");
-        scanf("%d", &nGameLevel);
-    }while (nGameLevel > 3 || nGameLevel < 1);
+        nCheckLevel = scanf("%d", &nGameLevel);
+        while(getchar() != '\n');
+    }while (nGameLevel > 3 || nGameLevel < 1 || nCheckLevel != 1);
+
     // Call int gameLoop() function
     nPlayerWinner = gameLoop(nNumberOfPlayers, nGameLevel); // 1 here is to just test printf function below
+
     // Print the player winner
     printf ("\nCongratulations Player %d!\n", nPlayerWinner);
     printf("\nYou are the winner!\n");
