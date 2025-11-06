@@ -366,6 +366,11 @@ bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     return bCorrect;
 }
 
+/* Description: This is function simply updates the number value in answerSequence()
+Precondition: It is currently a player's turn and a randomly sequence of numbers is being generated
+@param int nSequence int *nAnswer
+@return void
+*/
 void updateNumericalAnswer(int nSequence, int *nAnswer){
     for (int i = 0; i < 5; i++){
         printf("%d ", *nAnswer);
@@ -373,6 +378,12 @@ void updateNumericalAnswer(int nSequence, int *nAnswer){
     }
 }
 
+
+/* Description: This is function simply updates the number value in answerSequence()
+Precondition: It is currently a player's turn and a randomly sequence of letters is being generated
+@param int nSequence int nGameDifficulty, char *cAnswer char *cAnswer2
+@return void
+*/
 void updateAlphaAnswer(int nSequence, int nGameDifficulty, char *cAnswer, char *cAnswer2){
     if (nGameDifficulty == 1){
         for (int i = 0; i < 5; i++){
