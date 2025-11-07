@@ -10,8 +10,8 @@ Cedric Daniel P. Chan, DLSU ID# 12504106
 /*
 Description: A simple game where players must answer randomly-generated sequence questions in order to progress a win!
 Programmed by: Cedric Daniel P. Chan S19B
-Last modified: October 11, 2025
-Version: 1.1
+Last modified: November 7, 2025
+Version: 2.1
 Acknowledgements: 
     1. MP Project Specifications: https://dlsu.instructure.com/courses/219038/assignments/2274482
     2. Generating random numbers: https://www.geeksforgeeks.org/c/generating-random-number-range-c/
