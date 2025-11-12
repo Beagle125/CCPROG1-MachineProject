@@ -178,6 +178,11 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
             nCurrentPlayerTurn++;
         } 
 
+        // Press ENTER to proceed
+        printf ("Press ENTER to continue...");
+        getchar();
+        while (getchar() != '\n');
+        system("cls");
         // TEST Update the temporary placeholder
         nPlaceHolder++;
         
