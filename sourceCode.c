@@ -37,7 +37,8 @@ Precondition: N/A
 @param void
 @return integer 0 for the successful execution of the program.
 */
-int main (void){
+int 
+main (void){
     // Initialize important variables
     int nNumberOfPlayers, nGameLevel, nPlayerWinner, nCheckPlayers = -1, nCheckLevel = -1;
 
@@ -49,6 +50,7 @@ int main (void){
         printf("\nHow many players will play? ");
         nCheckPlayers =  scanf("%d", &nNumberOfPlayers);
         while (getchar() != '\n');
+        system("cls");
     }while (nNumberOfPlayers > 4 || nNumberOfPlayers < 1 || nCheckPlayers != 1);
 
     // Prompt and input nGameLevel
@@ -56,6 +58,7 @@ int main (void){
         printf("\nSelect a difficulty level: ");
         nCheckLevel = scanf("%d", &nGameLevel);
         while(getchar() != '\n');
+        system("cls");
     }while (nGameLevel > 3 || nGameLevel < 1 || nCheckLevel != 1);
 
     // Call int gameLoop() function
@@ -74,7 +77,8 @@ Precondition: The number of players and game level are inputted by the user.
 @return int nPlayerWinner.
 Bugs: None
 */
-int gameLoop(int nNumberOfPlayers, int nGameLevel){
+int 
+gameLoop(int nNumberOfPlayers, int nGameLevel){
     // Initialize important variables
     int nPlayer1, nPlayer2, nPlayer3, nPlayer4;
     int nCurrentPlayerTurn = 1;
@@ -193,7 +197,8 @@ Precondition: The current player and all possible four players.
 @return either nReturnPLayer which is set to either nPlayer1, nPlayer2, nPlayer3, or nPlayer4.
 Bugs: None
 */
-int checkPlayer(int nCurrentPlayerTurn, int nPlayer1, int nPlayer2, int nPlayer3, int nPlayer4){
+int 
+checkPlayer(int nCurrentPlayerTurn, int nPlayer1, int nPlayer2, int nPlayer3, int nPlayer4){
     int nReturnPlayer;
     switch (nCurrentPlayerTurn){
         case 1:
@@ -220,7 +225,8 @@ Bugs: None
 */
 
 
-int rollDie(void){
+int 
+rollDie(void){
     // Initialize nMin and nMax
     int nMin = 1;
     int nMax = 6;
@@ -243,7 +249,8 @@ Bugs:
     Causes: Its stems from when nSequence is negative. It also occurs where the char of nAnswer2 is not a letter anymore.
 3. There is a bug at difficulty 3 regarding how cAnswer and nAnswer relate to each other. 
 */
-bool answerSequence(int nGameLevel, int nCurrentPlayerTurn){
+bool 
+answerSequence(int nGameLevel, int nCurrentPlayerTurn){
     // Declaration of variables
     bool bCorrect = false;
     int nGenerate = 0;
@@ -371,7 +378,8 @@ Precondition: It is currently a player's turn and a randomly sequence of numbers
 @param int nSequence int *nAnswer
 @return void
 */
-void updateNumericalAnswer(int nSequence, int *nAnswer){
+void 
+updateNumericalAnswer(int nSequence, int *nAnswer){
     for (int i = 0; i < 5; i++){
         printf("%d ", *nAnswer);
         *nAnswer += nSequence;
@@ -384,7 +392,8 @@ Precondition: It is currently a player's turn and a randomly sequence of letters
 @param int nSequence int nGameDifficulty, char *cAnswer char *cAnswer2
 @return void
 */
-void updateAlphaAnswer(int nSequence, int nGameDifficulty, char *cAnswer, char *cAnswer2){
+void 
+updateAlphaAnswer(int nSequence, int nGameDifficulty, char *cAnswer, char *cAnswer2){
     if (nGameDifficulty == 1){
         for (int i = 0; i < 5; i++){
             printf(" %c", *cAnswer);
