@@ -157,10 +157,18 @@ Parameter: int nSequence, int nGameDifficulty, char *cAnswer, char *cAnswer2
 Returns: Void (Only updates the pointer parameter)
     1. This function contains the conditions and picks the right loop to update the cAnswer and or cAnswer2.
 
+###Penalizing the player
+Name: penalize()
+Parameter: void
+Returns: returns an int between 1 and 3 to decrement the player
+
+
 ##Notes Regarding issues and bugs
 1. main()
     i. Bug 1 is resolved
-2. answerSequence
+2. gameloop()
+    i. Bug 1 is resolved
+3. answerSequence
     i. Bug 1 is unresolved
     ii. Bug 2 is resolved 
-    iii. Bug 3 is resolved.
+    iii. Bug 3 is resolved

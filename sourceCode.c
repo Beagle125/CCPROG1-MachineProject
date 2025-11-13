@@ -28,6 +28,7 @@ Acknowledgements:
 int gameLoop(int nNumberOfPlayers, int nGameLevel);
 int checkPlayer(int nCurrentPlayerTurn, int nPlayer1, int nPlayer2, int nPlayer3, int nPlayer4);
 int rollDie(void);
+int penalize(void);
 bool answerSequence(int nGameLevel, int nCurrentPlayerTurn);
 void updateNumericalAnswer(int nSequence, int *nAnswer);
 void updateAlphaAnswer(int nSequence, int nGameDifficulty, char *cAnswer, char *cAnswer2);
@@ -50,7 +51,6 @@ main (void){
         printf("\nHow many players will play? ");
         nCheckPlayers =  scanf("%d", &nNumberOfPlayers);
         while (getchar() != '\n');
-        system("cls");
     }while (nNumberOfPlayers > 4 || nNumberOfPlayers < 1 || nCheckPlayers != 1);
 
     // Prompt and input nGameLevel
@@ -58,7 +58,6 @@ main (void){
         printf("\nSelect a difficulty level: ");
         nCheckLevel = scanf("%d", &nGameLevel);
         while(getchar() != '\n');
-        system("cls");
     }while (nGameLevel > 3 || nGameLevel < 1 || nCheckLevel != 1);
 
     // Call int gameLoop() function
@@ -85,6 +84,7 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
     //int nNumberOfEliminated = 0; (these are to be used in future versions)
     int nPlayerWinner;
     int nDieValue;
+    int nPenalty;
     //bool bPlayerWon = false; (these are to be used in future versions)
     bool bPlayerCorrect = false;
     // THIS IS TO BE ADDED char cRoll;
@@ -122,76 +122,93 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
             break;
     }
 
-    // TEST The following print statement below is to test the rollDie function
-    printf("Before the game: player1: %d, player2: %d, player3: %d, player4: %d\n", nPlayer1, nPlayer2, nPlayer3, nPlayer4);
-
     // The main while loop that continues until a winner is selected or all players are eliminated
     while (nPlaceHolder < 9){ // TEST This is just to see if it will loop  nine times it will soon be changed to while(bPlayerWon == false && nNumberOfEliminated != nNumberOfPlayers)
-        // An if statement for every player's turn
-        if (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) > 0){
-            // Greet the current player
-            printf("-----------------------PLAYER %d \'s TURN-----------------------", nCurrentPlayerTurn);
-            // Roll the die and move the current player 
-           // THIS IS TO BE ADDED printf("Player %d, press ENTER to roll the dice...", nCurrentPlayerTurn);
-            nDieValue = rollDie();
-            printf("\nPlayer %d rolled a %d\n", nCurrentPlayerTurn, nDieValue);
+        // Greet the current player
+        printf("-----------------------PLAYER %d \'s TURN-----------------------\n", nCurrentPlayerTurn);
+        // Roll the die and move the current player 
+        printf("Player %d, press ENTER to roll the dice...", nCurrentPlayerTurn);
+        while (getchar() != '\n');
+        nDieValue = rollDie();
+        printf("\nPlayer %d rolled a %d\n", nCurrentPlayerTurn, nDieValue);
+        switch (nCurrentPlayerTurn){
+            case 1:
+                nPlayer1 += nDieValue;
+                break;
+            
+            case 2:
+                nPlayer2 += nDieValue;
+                break;
+
+            case 3:
+                nPlayer3 += nDieValue;
+                break;
+
+            case 4:
+                nPlayer4 += nDieValue;
+                break;
+        }
+
+        // Answering the question
+        bPlayerCorrect =  answerSequence(nGameLevel, nCurrentPlayerTurn);
+
+        // Move the player's position or current space if wrong (Add the going back feature soon)
+        if (bPlayerCorrect == false){
+            printf("Player %d got it INCORRECT!\n", nCurrentPlayerTurn);
+            nPenalty = penalize();
             switch (nCurrentPlayerTurn){
                 case 1:
-                    nPlayer1 += nDieValue;
+                    nPlayer1 -= nPenalty;
                     break;
-                
                 case 2:
-                    nPlayer2 += nDieValue;
+                    nPlayer2 -= nPenalty;
                     break;
-
                 case 3:
-                    nPlayer3 += nDieValue;
+                    nPlayer3 -= nPenalty;
                     break;
-
                 case 4:
-                    nPlayer4 += nDieValue;
-                    break;
+                    nPlayer4 -= nPenalty;
             }
-
-            // Answering the question
-            bPlayerCorrect =  answerSequence(nGameLevel, nCurrentPlayerTurn);
-
-            // Move the player's position or current space if wrong (Add the going back feature soon)
-            if (bPlayerCorrect == false){
-                printf("Player %d got it INCORRECT!\n", nCurrentPlayerTurn);
-            }
-            else{
-                printf("Player %d got it CORRECT!\n", nCurrentPlayerTurn);
-            }
-            // TEST This piece of code is just see the loop in action currently
-            printf("Player %d turn done!\n", nCurrentPlayerTurn);
-        }
-
-        // Update the current player's turn
-        if (nCurrentPlayerTurn == nNumberOfPlayers){
-                nCurrentPlayerTurn = 1;
-        }
-        else if (nDieValue == 6){
-            nCurrentPlayerTurn += 0;
         }
         else{
-            nCurrentPlayerTurn++;
-        } 
-
-        // Press ENTER to proceed
-        printf ("Press ENTER to continue...");
+            printf("Player %d got it CORRECT!\n", nCurrentPlayerTurn);
+        }
+        if (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) > 0){
+            printf("Player %d current position: ", nCurrentPlayerTurn);
+            switch(nCurrentPlayerTurn){
+                case 1: 
+                    printf("%d\n", nPlayer1);
+                    break;
+                case 2:
+                    printf("%d\n", nPlayer2);
+                    break;
+                case 3:
+                    printf("%d\n", nPlayer3);
+                    break;
+                case 4:
+                    printf("%d\n", nPlayer4);
+            }
+        }
+        else{
+            printf("Player %d is eliminated!\n", nCurrentPlayerTurn);
+        }
         getchar();
-        while (getchar() != '\n');
-        system("cls");
-        // TEST Update the temporary placeholder
-        nPlaceHolder++;
-        
 
+        // Update the current player's turn
+        do{
+            if (nCurrentPlayerTurn == nNumberOfPlayers){
+                nCurrentPlayerTurn = 1;
+            }
+            else if (nDieValue == 6){
+                nCurrentPlayerTurn += 0;
+            }
+            else{
+                nCurrentPlayerTurn++;
+            }
+        } while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 1);
+
+        printf("\n");
     }
-
-    // TEST The following print statement below are to test the rollDie function
-    printf("\nAfter the game: player1: %d, player2: %d, player3: %d, player4: %d\n", nPlayer1, nPlayer2, nPlayer3, nPlayer4);
-
     nPlayerWinner = 1;
     return nPlayerWinner; // TEST 1 here is to just test the print function on main
 }
@@ -538,4 +555,15 @@ updateAlphaAnswer(int nSequence, int nGameDifficulty, char *cAnswer, char *cAnsw
             }
         }
     }
+}
+
+int 
+penalize(void){
+    int nMin = 1;
+    int nMax = 10;
+
+    // Generate a random number
+    srand(time(NULL));
+
+    return (nMin + rand() % (nMax - nMin + 1));
 }
