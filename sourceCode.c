@@ -24,6 +24,9 @@ Acknowledgements:
 #include <stdlib.h>
 #include <time.h>
 
+// Macros
+#define MAX_STEPS 50
+
 // Prototypes of helper functions
 int gameLoop(int nNumberOfPlayers, int nGameLevel);
 int checkPlayer(int nCurrentPlayerTurn, int nPlayer1, int nPlayer2, int nPlayer3, int nPlayer4);
@@ -32,6 +35,7 @@ int penalize(void);
 bool answerSequence(int nGameLevel, int nCurrentPlayerTurn);
 void updateNumericalAnswer(int nSequence, int *nAnswer);
 void updateAlphaAnswer(int nSequence, int nGameDifficulty, char *cAnswer, char *cAnswer2);
+
 
 /* Description: This is the main function of the program. 
 Precondition: N/A
@@ -188,6 +192,47 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                 case 4:
                     printf("%d\n", nPlayer4);
             }
+
+            // Print a progress bar
+            printf("\nCurrent Progress:\n");
+            printf("[");
+            for (int i = 1; i <= MAX_STEPS; i++){
+                switch (nCurrentPlayerTurn){
+                    case 1:
+                        if (i <= nPlayer1){
+                            printf("|");
+                        }
+                        else{
+                            printf("-");
+                        }
+                        break;
+                    case 2:
+                        if (i <= nPlayer2){
+                            printf("|");
+                        }
+                        else{
+                            printf("-");
+                        }
+                        break;
+                    case 3:
+                        if (i <= nPlayer3){
+                            printf("|");
+                        }
+                        else{
+                            printf("-");
+                        }
+                        break;
+                    case 4:
+                        if (i <= nPlayer4){
+                            printf("|");
+                        }
+                        else{
+                            printf("-");
+                        }
+                }
+            }
+            printf("]");
+            printf("\n");
         }
         else{
             printf("Player %d is eliminated!\n", nCurrentPlayerTurn);
@@ -560,7 +605,7 @@ updateAlphaAnswer(int nSequence, int nGameDifficulty, char *cAnswer, char *cAnsw
 int 
 penalize(void){
     int nMin = 1;
-    int nMax = 10;
+    int nMax = 3;
 
     // Generate a random number
     srand(time(NULL));
