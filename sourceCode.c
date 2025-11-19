@@ -205,10 +205,21 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                     printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer4);
             }
         }
+        if (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0){
+            printf("Player %d is ELIMINATED!\n", nCurrentPlayerTurn);
+            // Print a progress bar:
+            printf("[");
+            for (int i = 1; i <= MAX_STEPS; i++){
+                printf("X");
+            }
 
-    /*
+            printf("]");
+            printf("\n");
+
+        }
+        else{
         // Print a progress bar
-        printf("\nCurrent Progress:\n");
+        printf("PLAYER PROGRESS:\n");
         printf("[");
         for (int i = 1; i <= MAX_STEPS; i++){
             switch (nCurrentPlayerTurn){
@@ -247,24 +258,34 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
         }
             printf("]");
             printf("\n");
-     */   
+        }
+
+    
     
         // Clear the input buffer
         getchar();
 
         // Update the current player's turn
-        do{
-            if (nCurrentPlayerTurn == nNumberOfPlayers && nDieValue != 6){
-                nCurrentPlayerTurn = 1;
-            }
-            else if (nDieValue == 6){
-                nCurrentPlayerTurn += 0;
-            }
-            else{
-                nCurrentPlayerTurn++;
-            }
-        } while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0);
-
+        if (nDieValue != 6){
+            do{
+                if (nCurrentPlayerTurn == nNumberOfPlayers){
+                    nCurrentPlayerTurn = 1;
+                }
+                else{
+                    nCurrentPlayerTurn++;
+                }
+            } while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0);
+        }
+        else if (nDieValue == 6 && checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0){
+            do{
+                if (nCurrentPlayerTurn == nNumberOfPlayers){
+                    nCurrentPlayerTurn = 1;
+                }
+                else{
+                    nCurrentPlayerTurn++;
+                }
+            } while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0);
+        }
         printf("\n");
     }
     
