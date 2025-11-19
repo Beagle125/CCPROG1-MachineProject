@@ -78,21 +78,21 @@ main (void){
 Precondition: The number of players and game level are inputted by the user.
 @param int nNumberOfPlayer, int nGameLevel
 @return int nPlayerWinner.
-Bugs: None
+Bugs: 
+1. Overflowing 50 causes a problem
 */
 int 
 gameLoop(int nNumberOfPlayers, int nGameLevel){
     // Initialize important variables
     int nPlayer1, nPlayer2, nPlayer3, nPlayer4;
     int nCurrentPlayerTurn = 1;
-    //int nNumberOfEliminated = 0; (these are to be used in future versions)
+    int nNumberOfEliminated = 0;
     int nPlayerWinner;
     int nDieValue;
     int nPenalty;
-    //bool bPlayerWon = false; (these are to be used in future versions)
+    bool bPlayerWon = false;
     bool bPlayerCorrect = false;
-    // TEST nPlaceHolder to be removed in the final version
-    int nPlaceHolder = 0;
+
 
     // Use switch case to set individual player variables
     switch (nNumberOfPlayers){
@@ -126,7 +126,7 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
     }
 
     // The main while loop that continues until a winner is selected or all players are eliminated
-    while (nPlaceHolder < 9){ // TEST This is just to see if it will loop  nine times it will soon be changed to while(bPlayerWon == false && nNumberOfEliminated != nNumberOfPlayers)
+    while (nNumberOfEliminated < nNumberOfPlayers - 1 && bPlayerWon == false){
         // Greet the current player
         printf("-----------------------PLAYER %d \'s TURN-----------------------\n", nCurrentPlayerTurn);
         // Roll the die and determine the penalty if wrong
@@ -152,6 +152,9 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                         nPlayer1 += nDieValue;
                     }
                     printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer1);
+                    if (nPlayer1 == 50){
+                        bPlayerWon = true;
+                    }
                     break;
                 case 2:
                     if (nPlayer2 + nDieValue > 50){
@@ -161,6 +164,9 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                         nPlayer2 += nDieValue;
                     }
                     printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer2);
+                    if (nPlayer2 == 50){
+                        bPlayerWon = true;
+                    }
                     break;
                 case 3:
                     if (nPlayer3 + nDieValue > 50){
@@ -170,6 +176,9 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                         nPlayer3 += nDieValue;
                     }
                     printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer3);
+                    if (nPlayer3 == 50){
+                        bPlayerWon = true;
+                    }
                     break;
                 case 4:
                     if (nPlayer4 + nDieValue > 50){
@@ -179,6 +188,9 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                         nPlayer4 += nDieValue;
                     }   
                     printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer4);
+                    if (nPlayer4 == 50){
+                        bPlayerWon = true;
+                    }
             }
         }
 
@@ -215,6 +227,7 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
 
             printf("]");
             printf("\n");
+            nNumberOfEliminated++;
 
         }
         else{
