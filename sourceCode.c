@@ -91,38 +91,37 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
     int nPenalty;
     //bool bPlayerWon = false; (these are to be used in future versions)
     bool bPlayerCorrect = false;
-    // THIS IS TO BE ADDED char cRoll;
     // TEST nPlaceHolder to be removed in the final version
     int nPlaceHolder = 0;
 
     // Use switch case to set individual player variables
     switch (nNumberOfPlayers){
         case 1:
-            nPlayer1 = 1;
-            nPlayer2 = 0;
-            nPlayer3 = 0;
-            nPlayer4 = 0;
+            nPlayer1 = 0;
+            nPlayer2 = -1;
+            nPlayer3 = -1;
+            nPlayer4 = -1;
             break;
 
         case 2:
-            nPlayer1 = 1;
-            nPlayer2 = 1;
-            nPlayer3 = 0;
-            nPlayer4 = 0;
+            nPlayer1 = 0;
+            nPlayer2 = 0;
+            nPlayer3 = -1;
+            nPlayer4 = -1;
             break;
 
         case 3:
-            nPlayer1 = 1;
-            nPlayer2 = 1;
-            nPlayer3 = 1;
-            nPlayer4 = 0;
+            nPlayer1 = 0;
+            nPlayer2 = 0;
+            nPlayer3 = 0;
+            nPlayer4 = -1;
             break;
         
         case 4:
-            nPlayer1 = 1;
-            nPlayer2 = 1;
-            nPlayer3 = 1;
-            nPlayer4 = 1;
+            nPlayer1 = 0;
+            nPlayer2 = 0;
+            nPlayer3 = 0;
+            nPlayer4 = 0;
             break;
     }
 
@@ -130,118 +129,132 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
     while (nPlaceHolder < 9){ // TEST This is just to see if it will loop  nine times it will soon be changed to while(bPlayerWon == false && nNumberOfEliminated != nNumberOfPlayers)
         // Greet the current player
         printf("-----------------------PLAYER %d \'s TURN-----------------------\n", nCurrentPlayerTurn);
-        // Roll the die and move the current player 
+        // Roll the die and determine the penalty if wrong
         printf("Player %d, press ENTER to roll the dice...", nCurrentPlayerTurn);
         while (getchar() != '\n');
         nDieValue = rollDie();
+        nPenalty = penalize();
         printf("\nPlayer %d rolled a %d\n", nCurrentPlayerTurn, nDieValue);
-        switch (nCurrentPlayerTurn){
-            case 1:
-                nPlayer1 += nDieValue;
-                break;
-            
-            case 2:
-                nPlayer2 += nDieValue;
-                break;
-
-            case 3:
-                nPlayer3 += nDieValue;
-                break;
-
-            case 4:
-                nPlayer4 += nDieValue;
-                break;
-        }
-
+        
         // Answering the question
         bPlayerCorrect =  answerSequence(nGameLevel, nCurrentPlayerTurn);
 
-        // Move the player's position or current space if wrong (Add the going back feature soon)
-        if (bPlayerCorrect == false){
+        // If player is correct
+        if (bPlayerCorrect == true){
+            printf("Player %d got it CORRECT!\n", nCurrentPlayerTurn);
+            // Loop through the board
+            switch (nCurrentPlayerTurn){
+                case 1:
+                    if (nPlayer1 + nDieValue > 50){
+                        nPlayer1 += (nPlayer1 + nDieValue) - 50;
+                    }
+                    else{
+                        nPlayer1 += nDieValue;
+                    }
+                    printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer1);
+                    break;
+                case 2:
+                    if (nPlayer2 + nDieValue > 50){
+                        nPlayer2 += (nPlayer2 + nDieValue) - 50;
+                    }
+                    else{
+                        nPlayer2 += nDieValue;
+                    }
+                    printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer2);
+                    break;
+                case 3:
+                    if (nPlayer3 + nDieValue > 50){
+                        nPlayer3 += (nPlayer3 + nDieValue) - 50;
+                    }
+                    else{
+                        nPlayer3 += nDieValue;
+                    }
+                    printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer3);
+                    break;
+                case 4:
+                    if (nPlayer4 + nDieValue > 50){
+                        nPlayer4 += (nPlayer4 + nDieValue) - 50;
+                    }
+                    else{
+                        nPlayer4 += nDieValue;
+                    }   
+                    printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer4);
+            }
+        }
+
+        // If player is incorrect
+        else{
             printf("Player %d got it INCORRECT!\n", nCurrentPlayerTurn);
-            nPenalty = penalize();
+            printf("Player %d will go back %d spaces.\n", nCurrentPlayerTurn, nPenalty);
+            //loop through the board backwards
             switch (nCurrentPlayerTurn){
                 case 1:
                     nPlayer1 -= nPenalty;
+                    printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer1);
                     break;
                 case 2:
                     nPlayer2 -= nPenalty;
+                    printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer2);
                     break;
                 case 3:
                     nPlayer3 -= nPenalty;
+                    printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer3);
                     break;
                 case 4:
                     nPlayer4 -= nPenalty;
+                    printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer4);
             }
         }
-        else{
-            printf("Player %d got it CORRECT!\n", nCurrentPlayerTurn);
-        }
-        if (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) > 0){
-            printf("Player %d current position: ", nCurrentPlayerTurn);
-            switch(nCurrentPlayerTurn){
-                case 1: 
-                    printf("%d\n", nPlayer1);
+
+    /*
+        // Print a progress bar
+        printf("\nCurrent Progress:\n");
+        printf("[");
+        for (int i = 1; i <= MAX_STEPS; i++){
+            switch (nCurrentPlayerTurn){
+                case 1:
+                    if (i <= nPlayer1){
+                        printf("|");
+                    }
+                    else{
+                        printf("-");
+                    }
                     break;
                 case 2:
-                    printf("%d\n", nPlayer2);
+                    if (i <= nPlayer2){
+                        printf("|");
+                    }
+                    else{
+                        printf("-");
+                    }
                     break;
                 case 3:
-                    printf("%d\n", nPlayer3);
+                    if (i <= nPlayer3){
+                        printf("|");
+                    }
+                    else{
+                        printf("-");
+                    }
                     break;
                 case 4:
-                    printf("%d\n", nPlayer4);
+                    if (i <= nPlayer4){
+                        printf("|");
+                    }
+                    else{
+                        printf("-");
+                    }
             }
-
-            // Print a progress bar
-            printf("\nCurrent Progress:\n");
-            printf("[");
-            for (int i = 1; i <= MAX_STEPS; i++){
-                switch (nCurrentPlayerTurn){
-                    case 1:
-                        if (i <= nPlayer1){
-                            printf("|");
-                        }
-                        else{
-                            printf("-");
-                        }
-                        break;
-                    case 2:
-                        if (i <= nPlayer2){
-                            printf("|");
-                        }
-                        else{
-                            printf("-");
-                        }
-                        break;
-                    case 3:
-                        if (i <= nPlayer3){
-                            printf("|");
-                        }
-                        else{
-                            printf("-");
-                        }
-                        break;
-                    case 4:
-                        if (i <= nPlayer4){
-                            printf("|");
-                        }
-                        else{
-                            printf("-");
-                        }
-                }
-            }
+        }
             printf("]");
             printf("\n");
-        }
-        else{
-            printf("Player %d is eliminated!\n", nCurrentPlayerTurn);
-        }
+     */   
+    
+        // Clear the input buffer
         getchar();
 
         // Update the current player's turn
         do{
-            if (nCurrentPlayerTurn == nNumberOfPlayers){
+            if (nCurrentPlayerTurn == nNumberOfPlayers && nDieValue != 6){
                 nCurrentPlayerTurn = 1;
             }
             else if (nDieValue == 6){
@@ -250,12 +263,14 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
             else{
                 nCurrentPlayerTurn++;
             }
-        } while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 1);
+        } while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0);
 
         printf("\n");
     }
+    
     nPlayerWinner = 1;
     return nPlayerWinner; // TEST 1 here is to just test the print function on main
+        
 }
 
 /* Description: This is the checkPlayer function to pair the current player to the status of players. This is to ensure we skip eliminated or non-existent players. 
