@@ -90,6 +90,7 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
     int nPlayerWinner;
     int nDieValue;
     int nPenalty;
+    bool bStepDown = false;
     bool bPlayerWon = false;
     bool bPlayerCorrect = false;
 
@@ -142,14 +143,20 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
         // If player is correct
         if (bPlayerCorrect == true){
             printf("Player %d got it CORRECT!\n", nCurrentPlayerTurn);
+            bStepDown = false;
             // Loop through the board
             switch (nCurrentPlayerTurn){
                 case 1:
-                    if (nPlayer1 + nDieValue > 50){
-                        nPlayer1 += (nPlayer1 + nDieValue) - 50;
-                    }
-                    else{
-                        nPlayer1 += nDieValue;
+                    for (int i = nDieValue; i >= 1; i--){
+                        if (nPlayer1 == 50){
+                            bStepDown = true;
+                        }
+                        if (bStepDown == true){
+                            nPlayer1 --;
+                        }
+                        else{
+                            nPlayer1++;
+                        }
                     }
                     printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer1);
                     if (nPlayer1 == 50){
@@ -157,11 +164,16 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                     }
                     break;
                 case 2:
-                    if (nPlayer2 + nDieValue > 50){
-                        nPlayer2 += (nPlayer2 + nDieValue) - 50;
-                    }
-                    else{
-                        nPlayer2 += nDieValue;
+                    for (int i = nDieValue; i >= 1; i--){
+                        if (nPlayer2 == 50){
+                            bStepDown = true;
+                        }
+                        if (bStepDown == true){
+                            nPlayer2 --;
+                        }
+                        else{
+                            nPlayer2++;
+                        }
                     }
                     printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer2);
                     if (nPlayer2 == 50){
@@ -169,11 +181,16 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                     }
                     break;
                 case 3:
-                    if (nPlayer3 + nDieValue > 50){
-                        nPlayer3 += (nPlayer3 + nDieValue) - 50;
-                    }
-                    else{
-                        nPlayer3 += nDieValue;
+                    for (int i = nDieValue; i >= 1; i--){
+                        if (nPlayer3 == 50){
+                            bStepDown = true;
+                        }
+                        if (bStepDown == true){
+                            nPlayer3 --;
+                        }
+                        else{
+                            nPlayer3++;
+                        }
                     }
                     printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer3);
                     if (nPlayer3 == 50){
@@ -181,12 +198,17 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                     }
                     break;
                 case 4:
-                    if (nPlayer4 + nDieValue > 50){
-                        nPlayer4 += (nPlayer4 + nDieValue) - 50;
+                    for (int i = nDieValue; i >= 1; i--){
+                        if (nPlayer4 == 50){
+                            bStepDown = true;
+                        }
+                        if (bStepDown == true){
+                            nPlayer4 --;
+                        }
+                        else{
+                            nPlayer4++;
+                        }
                     }
-                    else{
-                        nPlayer4 += nDieValue;
-                    }   
                     printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer4);
                     if (nPlayer4 == 50){
                         bPlayerWon = true;
