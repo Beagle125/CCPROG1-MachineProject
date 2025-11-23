@@ -305,30 +305,42 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
         getchar();
 
         // Update the current player's turn
-        if (nDieValue != 6){
-            do{
-                if (nCurrentPlayerTurn == nNumberOfPlayers){
-                    nCurrentPlayerTurn = 1;
-                }
-                else{
-                    nCurrentPlayerTurn++;
-                }
-            } while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0);
-        }
-        else if (nDieValue == 6 && checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0){
-            do{
-                if (nCurrentPlayerTurn == nNumberOfPlayers){
-                    nCurrentPlayerTurn = 1;
-                }
-                else{
-                    nCurrentPlayerTurn++;
-                }
-            } while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0);
+        if (nNumberOfEliminated < nNumberOfPlayers - 1){
+            if (nDieValue != 6){
+                do{
+                    if (nCurrentPlayerTurn == nNumberOfPlayers){
+                        nCurrentPlayerTurn = 1;
+                    }
+                    else{
+                        nCurrentPlayerTurn++;
+                    }
+                } while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0);
+            }
+            else if (nDieValue == 6 && checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0){
+                do{
+                    if (nCurrentPlayerTurn == nNumberOfPlayers){
+                        nCurrentPlayerTurn = 1;
+                    }
+                    else{
+                        nCurrentPlayerTurn++;
+                    }
+                } while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0);
+            }
         }
         printf("\n");
     }
     
-    return nPlayerWinner;
+    // Deciding the winner
+    if (!(nNumberOfEliminated < nNumberOfEliminated - 1)){
+        nCurrentPlayerTurn = 1;
+        while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0){
+            nCurrentPlayerTurn++;
+        }
+        nPlayerWinner = nCurrentPlayerTurn;
+    }
+    else{
+        return nPlayerWinner;
+    }
         
 }
 
