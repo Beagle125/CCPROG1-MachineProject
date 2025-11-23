@@ -10,11 +10,12 @@ Cedric Daniel P. Chan, DLSU ID# 12504106
 /*
 Description: A simple game where players must answer randomly-generated sequence questions in order to progress a win!
 Programmed by: Cedric Daniel P. Chan S19B
-Last modified: November 7, 2025
-Version: 2.1
+Last modified: November 23, 2025
+Version: 3.1
 Acknowledgements: 
     1. MP Project Specifications: https://dlsu.instructure.com/courses/219038/assignments/2274482
     2. Generating random numbers: https://www.geeksforgeeks.org/c/generating-random-number-range-c/
+    3. ASCII Art: https://patorjk.com/software/taag/#p=display&f=Avatar&t=Welcome+to%0AWalk+in+the+%0ASequence+Park%21&x=none&v=4&h=4&w=80&we=false 
 */
 
 //Preprocessor Directives
@@ -35,6 +36,7 @@ int penalize(void);
 bool answerSequence(int nGameLevel, int nCurrentPlayerTurn);
 void updateNumericalAnswer(int nSequence, int *nAnswer);
 void updateAlphaAnswer(int nSequence, int nGameDifficulty, char *cAnswer, char *cAnswer2);
+void printASCII(void);
 
 
 /* Description: This is the main function of the program. 
@@ -48,7 +50,8 @@ main (void){
     int nNumberOfPlayers, nGameLevel, nPlayerWinner, nCheckPlayers = -1, nCheckLevel = -1;
 
     //Print a welcoming message
-    printf("Welcome to a \"Walk in the Sequence Park\"\n");
+    printASCII();
+    printf("\n");
 
     // Prompt and input nNumberOfPLayers
     do{     
@@ -84,8 +87,6 @@ main (void){
 Precondition: The number of players and game level are inputted by the user.
 @param int nNumberOfPlayer, int nGameLevel
 @return int nPlayerWinner.
-Bugs: 
-1. Overflowing 50 causes a problem
 */
 int 
 gameLoop(int nNumberOfPlayers, int nGameLevel){
@@ -362,7 +363,6 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
 Precondition: The current player and all possible four players.
 @param int nCurrentPlayerTurn, int nPlayer1, int nPlayer2, int nPlayer3, int nPlayer4
 @return either nReturnPLayer which is set to either nPlayer1, nPlayer2, nPlayer3, or nPlayer4.
-Bugs: None
 */
 int 
 checkPlayer(int nCurrentPlayerTurn, int nPlayer1, int nPlayer2, int nPlayer3, int nPlayer4){
@@ -388,7 +388,6 @@ checkPlayer(int nCurrentPlayerTurn, int nPlayer1, int nPlayer2, int nPlayer3, in
 Precondition: It is currently a player's turn
 @param void
 @return a random integer between 1 and 6
-Bugs: None
 */
 
 
@@ -410,11 +409,6 @@ rollDie(void){
 Precondition: The player has already rolled the dice and is currently answering the question
 @param nGameLevel nCurrentPlayerTurn
 @return a boolean value that indicated if the player answered the question correctly or not
-Bugs: 
-1. Currently there is a bug where if the player gives a wrong input stuff goes wrong.
-2. There is a bug that somehow causes problem in the alpha sequence. Generating A A A A A or so, but the sequence is not 0?
-    Causes: Its stems from when nSequence is negative. It also occurs where the char of nAnswer2 is not a letter anymore.
-3. There is a bug at difficulty 3 regarding how cAnswer and nAnswer relate to each other. 
 */
 bool 
 answerSequence(int nGameLevel, int nCurrentPlayerTurn){
@@ -711,4 +705,25 @@ penalize(void){
     srand(time(NULL));
 
     return (nMin + rand() % (nMax - nMin + 1));
+}
+
+void
+printASCII(void){
+    printf(" _      _____ _     ____ ____  _      _____   _____ ____ \n");
+    printf("/ \\  /|/  __// \\   /   _Y  _ \\/ \\__/|/  __/  /__ __Y  _ \\ \n");
+    printf("| |  |||  \\  | |   |  / | / \\|| |\\/|||  \\      / \\ | / \\| \n");
+    printf("| |/\\|||  /_ | |_/\\|  \\_| \\_/|| |  |||  /_     | | | \\_/| \n");
+    printf("\\_/  \\|\\____\\____/\\____|____/\\_/  \\|\\____\\     \\_/ \\____/ \n");
+    printf("\n");
+    printf(" _      ____  _     _  __   _  _        _____ _     _____ \n");
+    printf("/ \\  /|/  _ \\/ \\   / |/ /  / \\/ \\  /|  /__ __Y \\ /|/  __/ \n");
+    printf("| |  ||| / \\|| |   |   /   | || |\\ ||    / \\ | |_|||  \\    \n");
+    printf("| |/\\||| |-||| |_/\\|   \\   | || | \\||    | | | | |||  /_\n");
+    printf("\\_/  \\|\\_/ \\|\\____/\\_|\\_\\  \\_/\\_/  \\|    \\_/ \\_/ \\|\\____\\ \n");
+    printf("\n");
+    printf(" ____  _____ ____  _     _____ _      ____ _____   ____  ____  ____  _  __ _ \n");
+    printf("/ ___\\/  __//  _ \\/ \\ /\\/  __// \\  /|/   _Y  __/  /  __\\/  _ \\/  __\\/ |/ // \\ \n");
+    printf("|    \\|  \\  | / \\|| | |||  \\  | |\\ |||  / |  \\    |  \\/|| / \\||  \\/||   / | | \n");
+    printf("\\___ ||  /_ | \\_\\|| \\_/||  /_ | | \\|||  \\_|  /_   |  __/| |-|||    /|   \\ \\_/ \n");
+    printf("\\____/\\____\\____\\____/  \\____ \\_/  \\|\\____|____\\  \\_/   \\_/ \\|\\_/\\_\\_| \\_\\(_) \n");
 }
