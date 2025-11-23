@@ -392,8 +392,6 @@ Precondition: It is currently a player's turn
 @param void
 @return a random integer between 1 and 6
 */
-
-
 int 
 rollDie(void){
     // Initialize nMin and nMax
@@ -444,7 +442,7 @@ answerSequence(int nGameLevel, int nCurrentPlayerTurn){
             nAnswer = (-50 + rand() % (101));
             printf("What is the next number in the sequence: ");
             updateNumericalAnswer(nSequence, &nAnswer);
-            printf("\n");
+            printf(" [x]\n");
             printf("\nYour answer: ");
             scanf("%d", &nPlayerInput);
             printf("\n");
@@ -459,7 +457,7 @@ answerSequence(int nGameLevel, int nCurrentPlayerTurn){
             cAnswer = 'A' + (rand() % 26);
             printf("What is the next letter in the sequence: ");
             updateAlphaAnswer(nSequence, nGameLevel, &cAnswer, &cAnswer2);
-            printf("\n");
+            printf(" [x]\n");
             printf("\nYour answer: ");
             scanf(" %c", &cPlayerInput);
             printf("\n");
@@ -482,7 +480,7 @@ answerSequence(int nGameLevel, int nCurrentPlayerTurn){
             printf("What are the next two numbers in the sequence: ");
             updateNumericalAnswer(nSequence, &nAnswer);
             nAnswer2 = nAnswer + nSequence;
-            printf("\n");
+            printf(" [x] [x]\n");
             printf("\nYour two answers: ");
             scanf("%d %d", &nPlayerInput, &nPlayerInput2);
             printf("\n");
@@ -497,7 +495,7 @@ answerSequence(int nGameLevel, int nCurrentPlayerTurn){
             cAnswer = 'A' + (rand() % 26);
             printf("What are the next two letters in the sequence: ");
             updateAlphaAnswer(nSequence, nGameLevel, &cAnswer, &cAnswer2);
-            printf("\n");
+            printf(" [x] [x]\n");
             printf("\nYour two answers: ");
             scanf(" %c %c", &cPlayerInput, &cPlayerInput2);
             printf("\n");
@@ -519,7 +517,7 @@ answerSequence(int nGameLevel, int nCurrentPlayerTurn){
         cAnswer = 'A' + (rand() % 26);
         printf("What are the next two numbers and letters in the sequence: ");
         updateAlphaAnswer(nSequence, nGameLevel, &cAnswer, &cAnswer2);
-        printf("\n");
+        printf(" [x] [x]\n");
         printf("\nYour two answers: ");
         scanf(" %c %d", &cPlayerInput, &nPlayerInput);
         printf("\n");
