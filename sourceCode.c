@@ -161,6 +161,7 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                     printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer1);
                     if (nPlayer1 == 50){
                         bPlayerWon = true;
+                        nPlayerWinner = 1;
                     }
                     break;
                 case 2:
@@ -178,6 +179,7 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                     printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer2);
                     if (nPlayer2 == 50){
                         bPlayerWon = true;
+                        nPlayerWinner = 2;
                     }
                     break;
                 case 3:
@@ -195,6 +197,7 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                     printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer3);
                     if (nPlayer3 == 50){
                         bPlayerWon = true;
+                        nPlayerWinner = 3;
                     }
                     break;
                 case 4:
@@ -212,6 +215,7 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                     printf("Player %d\'s current position is %d\n", nCurrentPlayerTurn, nPlayer4);
                     if (nPlayer4 == 50){
                         bPlayerWon = true;
+                        nPlayerWinner = 4;
                     }
             }
         }
@@ -324,8 +328,7 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
         printf("\n");
     }
     
-    nPlayerWinner = 1;
-    return nPlayerWinner; // TEST 1 here is to just test the print function on main
+    return nPlayerWinner;
         
 }
 
