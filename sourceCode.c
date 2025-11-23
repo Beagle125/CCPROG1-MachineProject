@@ -68,8 +68,14 @@ main (void){
     nPlayerWinner = gameLoop(nNumberOfPlayers, nGameLevel); // 1 here is to just test printf function below
 
     // Print the player winner
-    printf ("\nCongratulations Player %d!\n", nPlayerWinner);
-    printf("\nYou are the winner!\n");
+    if (nPlayerWinner != 0){
+        printf ("\nCongratulations Player %d!\n", nPlayerWinner);
+        printf("\nYou are the winner!\n");
+    }
+    else{
+        printf("\nNo Player Won!\n");
+    }
+
     return 0;
 
 }
@@ -90,6 +96,7 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
     int nPlayerWinner;
     int nDieValue;
     int nPenalty;
+    bool bSinglePlayer = false;
     bool bStepDown = false;
     bool bPlayerWon = false;
     bool bPlayerCorrect = false;
@@ -102,6 +109,7 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
             nPlayer2 = -1;
             nPlayer3 = -1;
             nPlayer4 = -1;
+            bSinglePlayer = true;
             break;
 
         case 2:
@@ -127,7 +135,7 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
     }
 
     // The main while loop that continues until a winner is selected or all players are eliminated
-    while (nNumberOfEliminated < nNumberOfPlayers - 1 && bPlayerWon == false){
+    while (bPlayerWon == false){
         // Greet the current player
         printf("-----------------------PLAYER %d \'s TURN-----------------------\n", nCurrentPlayerTurn);
         // Roll the die and determine the penalty if wrong
@@ -305,7 +313,7 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
         getchar();
 
         // Update the current player's turn
-        if (nNumberOfEliminated < nNumberOfPlayers - 1){
+        if (nNumberOfEliminated < nNumberOfPlayers - 1 && bSinglePlayer == false){
             if (nDieValue != 6){
                 do{
                     if (nCurrentPlayerTurn == nNumberOfPlayers){
@@ -327,11 +335,18 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                 } while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0);
             }
         }
+        // Conditions for single player mode
+        else{
+            if (nNumberOfEliminated == 1){
+                nPlayerWinner = 0;
+                bPlayerWon = true;
+            }
+        }
         printf("\n");
     }
     
     // Deciding the winner
-    if (!(nNumberOfEliminated < nNumberOfEliminated - 1)){
+    if (nNumberOfEliminated == nNumberOfPlayers - 1 && bSinglePlayer == false){
         nCurrentPlayerTurn = 1;
         while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0){
             nCurrentPlayerTurn++;
