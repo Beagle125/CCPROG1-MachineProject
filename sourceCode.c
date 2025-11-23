@@ -336,10 +336,13 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
                 } while (checkPlayer(nCurrentPlayerTurn, nPlayer1, nPlayer2, nPlayer3, nPlayer4) < 0);
             }
         }
-        // Conditions for single player mode
+        // No players remain in single player or one player remains in multiplayer
         else{
-            if (nNumberOfEliminated == 1){
+            if (nNumberOfEliminated == 1 && bSinglePlayer == true){
                 nPlayerWinner = 0;
+                bPlayerWon = true;
+            }
+            else if (nNumberOfEliminated == nNumberOfPlayers - 1 && bSinglePlayer == false){
                 bPlayerWon = true;
             }
         }
