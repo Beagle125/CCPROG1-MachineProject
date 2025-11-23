@@ -338,10 +338,9 @@ gameLoop(int nNumberOfPlayers, int nGameLevel){
         }
         nPlayerWinner = nCurrentPlayerTurn;
     }
-    else{
-        return nPlayerWinner;
-    }
-        
+
+    return nPlayerWinner;
+
 }
 
 /* Description: This is the checkPlayer function to pair the current player to the status of players. This is to ensure we skip eliminated or non-existent players. 
